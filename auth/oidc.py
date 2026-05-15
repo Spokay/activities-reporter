@@ -1,0 +1,18 @@
+from typing import Optional
+from fastapi_mcp.types import AuthConfig
+
+
+def build_auth_config(
+    issuer: str,
+    client_id: str,
+    client_secret: str,
+    audience: Optional[str] = None,
+) -> AuthConfig:
+    return AuthConfig(
+        issuer=issuer,
+        client_id=client_id,
+        client_secret=client_secret,
+        audience=audience,
+        setup_proxies=True,
+        setup_fake_dynamic_registration=True,
+    )

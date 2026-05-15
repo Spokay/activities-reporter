@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  activities-db:
+    image: mariadb:11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: activities
+      MYSQL_USER: activities
+      MYSQL_PASSWORD: activities
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  activities-reporter:
+    build: .
+    ports:
+      - "8002:8002"
+    environment:
+      DATABASE_URL: mysql+pymysql://activities:activities@activities-db/activities
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+      OAUTH_ISSUER: ${OAUTH_ISSUER:-}
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:-}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET:-}
+      OAUTH_AUDIENCE: ${OAUTH_AUDIENCE:-}
+    depends_on:
+      activities-db:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8002
+
+volumes:
+  mariadb_data:

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="activities-reporter" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id>Angular</id>
+          </State>
+          <State>
+            <id>Dev Container</id>
+          </State>
+          <State>
+            <id>Django</id>
+          </State>
+          <State>
+            <id>DotEnv</id>
+          </State>
+          <State>
+            <id>Flow type checkerJavaScript and TypeScript</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript and TypeScript</id>
+          </State>
+          <State>
+            <id>HTTP Client</id>
+          </State>
+          <State>
+            <id>JavaScript and TypeScript</id>
+          </State>
+          <State>
+            <id>Pyramid</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>Security</id>
+          </State>
+          <State>
+            <id>TypeScriptJavaScript and TypeScript</id>
+          </State>
+          <State>
+            <id>dbt</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="activities-reporter" project-jdk-type="Python SDK" />
+</project>

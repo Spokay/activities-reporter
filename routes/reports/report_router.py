@@ -19,7 +19,12 @@ async def create_report(
 ):
     done = (
         db.query(Report)
-        .filter_by(city=req.city, start_date=req.start_date, end_date=req.end_date, status=ReportStatus.done)
+        .filter(
+            Report.city == req.city,
+            Report.start_date == req.start_date,
+            Report.end_date == req.end_date,
+            Report.status == ReportStatus.done,
+        )
         .first()
     )
     if done:

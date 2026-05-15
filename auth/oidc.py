@@ -5,7 +5,7 @@ from fastapi_mcp.types import AuthConfig
 def build_auth_config(
     issuer: str,
     client_id: str,
-    client_secret: str,
+    client_secret: Optional[str] = None,
     audience: Optional[str] = None,
 ) -> AuthConfig:
     return AuthConfig(

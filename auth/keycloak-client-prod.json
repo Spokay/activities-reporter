@@ -1,0 +1,47 @@
+{
+  "clientId": "activities-reporter-prod",
+  "name": "Activities Reporter (Prod)",
+  "description": "MCP + REST API for city activity reports - Production",
+  "enabled": true,
+  "protocol": "openid-connect",
+  "publicClient": false,
+  "clientAuthenticatorType": "client-secret",
+  "standardFlowEnabled": true,
+  "implicitFlowEnabled": false,
+  "directAccessGrantsEnabled": false,
+  "serviceAccountsEnabled": false,
+  "bearerOnly": false,
+  "consentRequired": false,
+  "frontchannelLogout": true,
+  "rootUrl": "https://activities-reporter.spokayhub.top",
+  "baseUrl": "https://activities-reporter.spokayhub.top",
+  "adminUrl": "https://activities-reporter.spokayhub.top",
+  "redirectUris": [
+    "https://activities-reporter.spokayhub.top/*",
+    "http://localhost:*"
+  ],
+  "webOrigins": [
+    "https://activities-reporter.spokayhub.top"
+  ],
+  "attributes": {
+    "oidc.ciba.grant.enabled": "false",
+    "oauth2.device.authorization.grant.enabled": "false",
+    "backchannel.logout.session.required": "true",
+    "backchannel.logout.revoke.offline.tokens": "false",
+    "pkce.code.challenge.method": "S256"
+  },
+  "defaultClientScopes": [
+    "web-origins",
+    "acr",
+    "profile",
+    "roles",
+    "email"
+  ],
+  "optionalClientScopes": [
+    "address",
+    "phone",
+    "offline_access",
+    "microprofile-jwt"
+  ],
+  "fullScopeAllowed": true
+}

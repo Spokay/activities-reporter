@@ -1,0 +1,36 @@
+services:
+  activities-db:
+    image: mariadb:11
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: activities
+      MYSQL_USER: activities
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  activities-reporter:
+    image: registry.spokayhub.top/activity-reporter:${VERSION:-latest}
+    ports:
+      - "8881:8002"
+    environment:
+      DATABASE_URL: mysql+pymysql://activities:${DB_PASSWORD}@activities-db/activities
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      TAVILY_API_KEY: ${TAVILY_API_KEY}
+      OAUTH_ISSUER: ${OAUTH_ISSUER}
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
+      OAUTH_AUDIENCE: ${OAUTH_AUDIENCE}
+    depends_on:
+      activities-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:

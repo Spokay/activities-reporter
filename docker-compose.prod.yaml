@@ -8,6 +8,8 @@ services:
       MARIADB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mariadb_data:/var/lib/mysql
+    networks:
+      - activities-network
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 10s
@@ -27,6 +29,9 @@ services:
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
       OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
       OAUTH_AUDIENCE: ${OAUTH_AUDIENCE}
+    networks:
+      - activities-network
+      - nginx_proxy_manager_network
     depends_on:
       activities-db:
         condition: service_healthy
@@ -34,3 +39,11 @@ services:
 
 volumes:
   mariadb_data:
+
+networks:
+  activities-network:
+    driver: bridge
+  nginx_proxy_manager_network:
+    external: true
+    name: nginx_proxy_manager_nginx_network
+

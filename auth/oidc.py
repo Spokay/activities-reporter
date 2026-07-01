@@ -13,6 +13,8 @@ def build_auth_config(
         client_id=client_id,
         client_secret=client_secret,
         audience=audience,
+        authorize_url=f"{issuer}/protocol/openid-connect/auth",
+        oauth_metadata_url=f"{issuer}/.well-known/openid-configuration",
         setup_proxies=True,
         setup_fake_dynamic_registration=True,
     )

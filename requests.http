@@ -1,0 +1,59 @@
+### Get token (client credentials)
+# @name auth
+POST https://auth.spokayhub.top/realms/spokay-realm/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=activities-reporter&client_secret=OwwSjb2FUE6dIARyuCeFizg28BPIiyaj
+
+> {%
+client.global.set("token", response.body.access_token);
+%}
+
+###
+
+### Create report — no token (expect 401)
+POST http://localhost:8002/api/reports
+Content-Type: application/json
+
+{
+  "city": "Paris",
+  "start_date": "2024-01-01",
+  "end_date": "2024-01-31"
+}
+
+###
+
+### Create report — with token (expect 202)
+# @name create_report
+POST http://localhost:8002/api/reports
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "city": "Paris",
+  "start_date": "2024-01-01",
+  "end_date": "2024-01-31"
+}
+
+> {%
+client.global.set("report_id", response.body.id);
+%}
+
+###
+
+### Poll report status
+GET http://localhost:8002/api/reports/{{report_id}}
+Authorization: Bearer {{token}}
+
+###
+
+### MCP endpoint — no token (expect 401)
+GET http://localhost:8002/mcp
+
+###
+
+### MCP endpoint — with token
+GET http://localhost:8002/mcp
+Authorization: Bearer {{token}}
+
+###

@@ -1,0 +1,47 @@
+{
+  "clientId": "activities-reporter",
+  "name": "Activities Reporter",
+  "description": "MCP + REST API for city activity reports",
+  "enabled": true,
+  "protocol": "openid-connect",
+  "publicClient": false,
+  "clientAuthenticatorType": "client-secret",
+  "standardFlowEnabled": true,
+  "implicitFlowEnabled": false,
+  "directAccessGrantsEnabled": false,
+  "serviceAccountsEnabled": false,
+  "bearerOnly": false,
+  "consentRequired": false,
+  "frontchannelLogout": true,
+  "rootUrl": "http://localhost:8002",
+  "baseUrl": "http://localhost:8002",
+  "adminUrl": "http://localhost:8002",
+  "redirectUris": [
+    "http://localhost:8002/*",
+    "http://localhost:*"
+  ],
+  "webOrigins": [
+    "http://localhost:8002"
+  ],
+  "attributes": {
+    "oidc.ciba.grant.enabled": "false",
+    "oauth2.device.authorization.grant.enabled": "false",
+    "backchannel.logout.session.required": "true",
+    "backchannel.logout.revoke.offline.tokens": "false",
+    "pkce.code.challenge.method": "S256"
+  },
+  "defaultClientScopes": [
+    "web-origins",
+    "acr",
+    "profile",
+    "roles",
+    "email"
+  ],
+  "optionalClientScopes": [
+    "address",
+    "phone",
+    "offline_access",
+    "microprofile-jwt"
+  ],
+  "fullScopeAllowed": true
+}

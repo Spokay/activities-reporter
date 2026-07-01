@@ -2,12 +2,13 @@ from typing import List
 from uuid import uuid4
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Response
 from sqlalchemy.orm import Session
+from auth.jwt import require_auth
 from database.engine import get_db
 from database.models import Report, ReportStatus
 from schemas.report_schemas import CreateReportRequest, ReportResponse
 from services.report_service import generate_report
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_auth)])
 
 
 @router.post("", status_code=202, operation_id="create_report", response_model=ReportResponse)

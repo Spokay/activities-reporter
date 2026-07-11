@@ -21,11 +21,19 @@ async def generate_report(report_id: str, city: str, start_date: date, end_date:
         final = await writer.invoke_async(
             f"Format this research into a report:\n{research}"
         )
+        content = str(final)
+
+        if len(content) > 1500:
+            content = str(await writer.invoke_async(
+                f"This report is too long ({len(content)} chars). "
+                f"Rewrite it under 1500 characters total. Keep only the 3 best events with date/location and 1 tip. "
+                f"Original:\n{content}"
+            ))
 
         with get_session() as db:
             report = db.get(Report, report_id)
             report.status = ReportStatus.done
-            report.content = str(final)
+            report.content = content[:1500] if len(content) > 1500 else content
 
     except Exception as exc:
         with get_session() as db:

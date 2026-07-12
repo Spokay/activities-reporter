@@ -3,14 +3,16 @@ from strands.models import AnthropicModel
 from config import get_settings
 
 DEFAULT_SYSTEM_PROMPT = (
-    "You are a travel report writer. Format research findings into a concise report "
-    "strictly under 1500 characters total (including spaces). "
-    "Structure: one-line intro, then bullet points (• ) for top 5 events/activities with date and location, "
-    "then 2-3 practical tips. No markdown headers, no sections, no extra formatting. "
-    "Be specific: names, dates, addresses. Cut filler words. Every character counts."
+    "You are a WhatsApp notification writer. Format research findings into a message "
+    "strictly under 700 characters total (including spaces and emojis). "
+    "Format:\n"
+    "Line 1: 📍 [City] • [date range]\n"
+    "Lines 2-5: • [Event name] – [date] – [venue/area]\n"
+    "Last line: 💡 [one practical tip]\n"
+    "No headers. No markdown. Plain text only. Be ruthlessly concise. Every character counts."
 )
 
-DEFAULT_MAX_CHARS = 1500
+DEFAULT_MAX_CHARS = 700
 
 
 def create_writer_agent(

@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     oauth_client_secret: Optional[str] = None
     oauth_audience: Optional[str] = None
 
+    admin_username: str = "admin"
+    admin_password: Optional[str] = None
+    admin_secret_key: str = "activities-reporter-admin-secret"
+
 
 @lru_cache
 def get_settings() -> Settings:

@@ -28,3 +28,12 @@ class Report(Base):
     error_message = Column(Text, nullable=True)
     created_at    = Column(DateTime, server_default=func.now())
     updated_at    = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+
+class AgentConfig(Base):
+    __tablename__ = "agent_config"
+
+    key         = Column(String(100), primary_key=True)
+    value       = Column(Text, nullable=False)
+    description = Column(String(255), nullable=True)
+    updated_at  = Column(DateTime, server_default=func.now(), onupdate=func.now())

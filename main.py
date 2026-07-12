@@ -3,21 +3,31 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi_mcp import FastApiMCP
+from sqladmin import Admin
+from starlette.middleware.sessions import SessionMiddleware
 
+from admin.views import AdminAuth, AgentConfigAdmin, ReportAdmin
 from auth.jwt import verify_token
 from auth.oidc import build_auth_config
 from config import get_settings
-from database.engine import init_engine
+from database.engine import get_engine, init_engine
 from routes.reports.report_router import router as reports_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_engine()
+    settings = get_settings()
+    admin = Admin(app, engine=get_engine(), authentication_backend=AdminAuth(secret_key=settings.admin_secret_key))
+    admin.add_view(ReportAdmin)
+    admin.add_view(AgentConfigAdmin)
     yield
 
 
 app = FastAPI(title="Activities Reporter", lifespan=lifespan)
+
+settings = get_settings()
+app.add_middleware(SessionMiddleware, secret_key=settings.admin_secret_key)
 app.include_router(reports_router, prefix="/api/reports")
 
 
@@ -42,7 +52,7 @@ async def mcp_auth_middleware(request: Request, call_next):
         )
     return await call_next(request)
 
-settings = get_settings()
+
 auth_config = None
 if settings.oauth_issuer and settings.oauth_client_id:
     auth_config = build_auth_config(

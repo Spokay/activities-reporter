@@ -31,12 +31,24 @@ class ReportAdmin(ModelView, model=Report):
     name = "Report"
     name_plural = "Reports"
     icon = "fa-solid fa-file-alt"
-    column_list = [Report.id, Report.city, Report.start_date, Report.end_date, Report.status, Report.created_at]
-    column_searchable_list = [Report.city]
-    column_sortable_list = [Report.created_at, Report.status]
-    can_create = False
-    can_edit = False
-    can_delete = False
+    column_list = [
+        Report.id, Report.city, Report.start_date, Report.end_date,
+        Report.status, Report.created_at, Report.updated_at,
+    ]
+    column_searchable_list = [Report.city, Report.status]
+    column_sortable_list = [Report.created_at, Report.status, Report.city]
+    column_details_list = [
+        Report.id, Report.city, Report.start_date, Report.end_date,
+        Report.status, Report.content, Report.error_message,
+        Report.created_at, Report.updated_at,
+    ]
+    form_columns = [
+        Report.city, Report.start_date, Report.end_date,
+        Report.status, Report.content, Report.error_message,
+    ]
+    can_create = True
+    can_edit = True
+    can_delete = True
 
 
 class AgentConfigAdmin(ModelView, model=AgentConfig):

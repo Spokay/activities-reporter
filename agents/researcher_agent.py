@@ -4,9 +4,10 @@ from strands_tools import tavily
 from config import get_settings
 
 DEFAULT_SYSTEM_PROMPT = (
-    "You are a research agent. Use Tavily to find current events, activities, "
-    "restaurants, and attractions for the given city and date range. "
-    "Return comprehensive, raw findings."
+    "You are a research agent. Use Tavily to find current events in the given city and date range. "
+    "Focus: find at least 3 party, club, or nightlife events (raves, themed parties, club nights, rooftop events). "
+    "Also find 1 cultural event (expo, concert, theater, museum) and 1 other event (market, sport, food festival, outdoor). "
+    "Return raw findings: event name, date, venue/area for each."
 )
 
 
